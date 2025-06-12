@@ -1,5 +1,7 @@
 @extends('layouts.layouts')
 
+@section('content')
+
 <!-- HERO SECTION -->
 <section id="hero" class="py-5" data-aos="flip-down">
   <div class="container py-5">
@@ -9,10 +11,12 @@
         <p class="mb-3">
           Jangan sampai kehilangan kesempatan lulus seleksi PPPK! Wujudkan impianmu lulus seleksi di tahun ini.
         </p>
-        <a href="/register" class="btn btn-outline-warning">
-          Ayo Daftarkan Dirimu
-        </a>
 
+        @auth
+          <p class="text-success">Selamat datang, {{ Auth::user()->name }}.</p>
+        @else
+          <a href="/register" class="btn btn-outline-warning">Ayo Daftarkan Dirimu</a>
+        @endauth
 
       </div>
       <div class="col-lg-6">
@@ -22,16 +26,17 @@
   </div>
 </section>
 
+
 <!-- PROGRAM SECTION -->
 <section id="program" style="margin-top: -30px;">
   <div class="container">
     <div class="row">
       @php
       $programs = [
-      ['title' => 'Pembelajaran PPPK', 'icon' => 'img-6.ico'],
-      ['title' => 'Tryout Seputar PPPK', 'icon' => 'IMG-7.ico'],
-      ['title' => 'Materi-Materi PPPK', 'icon' => 'img-8.ico'],
-      ['title' => 'Konsultasi Dengan Ahli', 'icon' => 'img-9.ico'],
+        ['title' => 'Pembelajaran PPPK', 'icon' => 'img-6.ico'],
+        ['title' => 'Tryout Seputar PPPK', 'icon' => 'IMG-7.ico'],
+        ['title' => 'Materi-Materi PPPK', 'icon' => 'img-8.ico'],
+        ['title' => 'Konsultasi Dengan Ahli', 'icon' => 'img-9.ico'],
       ];
       @endphp
       @foreach($programs as $program)
@@ -57,9 +62,9 @@
     <div class="row py-5" data-aos="flip-up">
       @php
       $beritas = [
-      ['img' => 'img-10.jpg', 'tgl' => '25-04-2025', 'judul' => 'LPPM Universitas Jambi Bekerja Sama Dengan Razaka Academy Mengadakan Sharing Session Persiapan Tes CASN.'],
-      ['img' => 'img-11.jpg', 'tgl' => '22-04-2025', 'judul' => 'Sharing Session Ujian PPPK Untuk Dosen Non ASN Dan Tendik Fakultas Pertanian UNJA'],
-      ['img' => 'img-12.jpg', 'tgl' => '06-05-2025', 'judul' => 'Silaturahmi Fakultas Hukum UNAJA Dengan Razaka Academy'],
+        ['img' => 'img-10.jpg', 'tgl' => '25-04-2025', 'judul' => 'LPPM Universitas Jambi Bekerja Sama Dengan Razaka Academy Mengadakan Sharing Session Persiapan Tes CASN.'],
+        ['img' => 'img-11.jpg', 'tgl' => '22-04-2025', 'judul' => 'Sharing Session Ujian PPPK Untuk Dosen Non ASN Dan Tendik Fakultas Pertanian UNJA'],
+        ['img' => 'img-12.jpg', 'tgl' => '06-05-2025', 'judul' => 'Silaturahmi Fakultas Hukum UNAJA Dengan Razaka Academy'],
       ];
       @endphp
       @foreach($beritas as $berita)
@@ -93,10 +98,10 @@
     <div class="row justify-content-center g-4">
       @php
       $features = [
-      ['title' => 'Kisi-kisi<br>Ter-update', 'desc' => 'Belajar materi yang pasti-pasti aja dan tentunya sesuai kisi-kisi terbaru', 'icon' => 'book.png', 'bg' => 'Ellipse 10.png'],
-      ['title' => 'Evaluasi<br>Detail', 'desc' => 'Evaluasi hasil try out kamu dengan grafik informasi super detail', 'icon' => 'evaluate.png', 'bg' => 'Ellipse 11.png'],
-      ['title' => 'Try<br>Out', 'desc' => 'Soal Try Out sesuai kisi-kisi terbaru lengkap dengan pembahasannya', 'icon' => 'Study.png', 'bg' => 'Ellipse 12.png'],
-      ['title' => 'Belajar<br>Fleksibel', 'desc' => 'Akses Try Out dimanapun dan kapanpun', 'icon' => 'Digital Signature.png', 'bg' => 'Ellipse 13.png'],
+        ['title' => 'Kisi-kisi<br>Ter-update', 'desc' => 'Belajar materi yang pasti-pasti aja dan tentunya sesuai kisi-kisi terbaru', 'icon' => 'book.png', 'bg' => 'Ellipse 10.png'],
+        ['title' => 'Evaluasi<br>Detail', 'desc' => 'Evaluasi hasil try out kamu dengan grafik informasi super detail', 'icon' => 'evaluate.png', 'bg' => 'Ellipse 11.png'],
+        ['title' => 'Try<br>Out', 'desc' => 'Soal Try Out sesuai kisi-kisi terbaru lengkap dengan pembahasannya', 'icon' => 'Study.png', 'bg' => 'Ellipse 12.png'],
+        ['title' => 'Belajar<br>Fleksibel', 'desc' => 'Akses Try Out dimanapun dan kapanpun', 'icon' => 'Digital Signature.png', 'bg' => 'Ellipse 13.png'],
       ];
       @endphp
       @foreach($features as $item)
@@ -129,7 +134,6 @@
   <p>Pilih paket yang paling sesuai untuk mendukung persiapan seleksi kamu!</p>
 
   <div class="row justify-content-center mt-4">
-    <!-- Paket PPPK -->
     <div class="col-md-7 mb-7">
       <div class="card h-100 shadow rounded-4">
         <div class="card-body text-center bg-light rounded-top-4">
@@ -143,16 +147,12 @@
           </p>
           <div class="row">
             <div class="col-6">
-              <div class="list-item">✅ <div>Materi lengkap kompetensi bidang</div>
-              </div>
-              <div class="list-item">✅ <div>Latihan soal PPPK sesuai SKB</div>
-              </div>
+              <div class="list-item">✅ <div>Materi lengkap kompetensi bidang</div></div>
+              <div class="list-item">✅ <div>Latihan soal PPPK sesuai SKB</div></div>
             </div>
             <div class="col-6">
-              <div class="list-item">✅ <div>Tips lulus wawancara</div>
-              </div>
-              <div class="list-item">✅ <div>E-book + video pembelajaran</div>
-              </div>
+              <div class="list-item">✅ <div>Tips lulus wawancara</div></div>
+              <div class="list-item">✅ <div>E-book + video pembelajaran</div></div>
             </div>
           </div>
           <a href="paketpppk" class="btn btn-warning w-100 rounded-pill mt-3">Beli Paket</a>
@@ -181,7 +181,6 @@
             <label for="email" class="form-label">Alamat Email</label>
             <input type="email" name="email" class="form-control" required>
           </div>
-          <!-- Tambah field lainnya kalau ada -->
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Daftar</button>
@@ -191,4 +190,4 @@
   </div>
 </div>
 
-@section('content')
+@endsection
